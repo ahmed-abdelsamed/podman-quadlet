@@ -1,0 +1,28 @@
+VM1 (192.168.100.10)    VM2 (192.168.100.11)    VM3 (192.168.100.12)
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Redis Node 1   │    │  Redis Node 2   │    │  Redis Node 3   │
+│  (Primary)      │    │  (Replica)      │    │  (Replica)      │
+│  - TLS Certs    │    │  - TLS Certs    │    │  - TLS Certs    │
+│  - Volume       │    │  - Volume       │    │  - Volume       │
+│  - Sentinel     │    │  - Sentinel     │    │  - Sentinel     │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+           │                        │                       │
+           └────────────────────────┴───────────────────────┘
+                    Redis Cluster + Sentinel HA
+
+setup and configured redis 8.6 HA on 3 podman on 3 VMs rocky linux 9 and nodes: {redis-node1: 192.168.100.63, redis-node2:192.168.100.64, redis-node3:192.168.100.65} ,
+Create Podman secrets for the certificates
+
+Create Podman voulume for redis_data, redis_logs, redis_conf and sentinel_data, sentinel_logs, sentinel_conf
+
+Create Podman network for redis and sentinel
+
+Using root image, 
+
+Using path /var/lib/containers/{data,config,certs,logs}
+
+Using path /etc/containers/systemd/{redis-sentinel.container, redis.container}
+
+set all permission for avoid any issues
+
+step by step without scripts
