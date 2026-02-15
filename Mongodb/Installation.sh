@@ -336,5 +336,41 @@ sudo podman logs mongodb
 
 
 #Your MongoDB HA cluster is now ready! The replica set will automatically handle failover if the primary node goes down.
+Yes! 🎉 Your MongoDB High Availability cluster is now **up and running**!
 
+## Quick Summary
+
+You now have:
+- ✅ **3-node MongoDB replica set** (rs0) running on Rocky Linux 9
+- ✅ **TLS/SSL encryption** with proper certificates and SANs
+- ✅ **Keyfile authentication** between replica set members
+- ✅ **Admin user** created with root privileges
+- ✅ **Podman Quadlet** managing containers as systemd services
+- ✅ **Auto-restart** on boot and failures
+
+## Quick Commands for Daily Use
+
+**Check cluster status:**
+```bash
+sudo podman exec -it mongodb mongosh \
+  --tls --tlsCAFile /etc/mongodb/keys/ca.crt \
+  --tlsCertificateKeyFile /etc/mongodb/keys/db-node1.pem \
+  -u admin -p 'Passw0rd!' --authenticationDatabase admin \
+  --eval "rs.status()"
+```
+
+**Connect to MongoDB shell:**
+```bash
+sudo podman exec -it mongodb mongosh \
+  --tls --tlsCAFile /etc/mongodb/keys/ca.crt \
+  --tlsCertificateKeyFile /etc/mongodb/keys/db-node1.pem \
+  -u admin -p 'Passw0rd!' --authenticationDatabase admin
+```
+
+**Connection string for applications:**
+```
+mongodb://admin:Passw0rd!@192.168.100.104:27017,192.168.100.105:27017,192.168.100.106:27017/?replicaSet=rs0&tls=true&tlsCAFile=/path/to/ca.crt
+```
+
+Your cluster is production-ready! 🚀
 
